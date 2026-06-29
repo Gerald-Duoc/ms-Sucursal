@@ -2,7 +2,9 @@ package ms.sucursal.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "transferencias")
@@ -17,14 +19,15 @@ public class Transferencia {
 
     private Long idSucursalOrigen;
     private Long idSucursalDestino;
-    private String estado;  // "Pendiente", "Aprobada", "Rechazada"
+    private String estado;
 
     @Temporal(TemporalType.DATE)
     private Date fechaSolicitud;
 
-    private Long idEmpleadoRecepcion;  // FK lógica hacia Registro Usuarios
+    private Long idEmpleadoRecepcion;
 
-    // ---------- FUTURA CONEXIÓN CON INVENTARIO (US-SUC-02) ----------
-    // Antes de crear la transferencia, se debe verificar que la sucursal origen
-    // tenga stock suficiente del producto, llamando a inventario-ms (US-INV-11).
+    // Relación con los ítems de la transferencia
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "transferencia_id")
+    private List<ItemTransferencia> items = new ArrayList<>();
 }
