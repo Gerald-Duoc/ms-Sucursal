@@ -76,8 +76,8 @@ public class TransferenciaService {
         if ("Aprobada".equalsIgnoreCase(dto.getEstado())
                 && !"Aprobada".equalsIgnoreCase(estadoAnterior)) {
 
-            String urlReducir = "http://localhost:8082/api/stock-libros/reducir";
-            String urlAñadir  = "http://localhost:8082/api/stock-libros/añadir";
+            String urlReducir = "http://localhost:8094/api/stock-libros/reducir";
+            String urlAñadir  = "http://localhost:8094/api/stock-libros/añadir";
 
             for (ItemTransferencia item : existente.getItems()) {
             // Crear request para este ítem
@@ -117,7 +117,7 @@ public class TransferenciaService {
     }
 
     private void transferirStock(Long idOrigen, Long idDestino, Long idLibro, int cantidad) {
-        String url = "http://localhost:8082/api/stock-libros/transferir";
+        String url = "http://localhost:8094/api/stock-libros/transferir";
 
         TransferenciaStockRequest request = new TransferenciaStockRequest();
         request.setIdSucursalOrigen(idOrigen);
